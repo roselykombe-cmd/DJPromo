@@ -4,45 +4,128 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DJPromoWebApp</title>
-    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DJPromoWebApp.styles.css" asp-append-version="true" />
+    <!-- Google Fonts for Modern Music Vibe -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;
+            --card-dark: #121216;
+            --accent-purple: #7c4dff;
+            --accent-cyan: #00e5ff;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Glassmorphism Navbar */
+        .navbar-custom {
+            background: rgba(18, 18, 22, 0.8) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .navbar-brand-glow {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #ffffff !important;
+            text-shadow: 0 0 10px rgba(124, 77, 255, 0.5);
+            transition: text-shadow 0.3s ease;
+        }
+
+        .navbar-brand-glow:hover {
+            text-shadow: 0 0 15px var(--accent-cyan);
+        }
+
+        .nav-link-custom {
+            color: var(--text-muted) !important;
+            font-weight: 500;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-link-custom:hover, .nav-item.active .nav-link-custom {
+            color: #ffffff !important;
+        }
+
+        /* Accent Button styling for Create Gig */
+        .btn-neon {
+            background: linear-gradient(135deg, var(--accent-purple), #512da8);
+            color: white !important;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-neon:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(124, 77, 255, 0.5);
+            background: linear-gradient(135deg, #8c61ff, #5e35b1);
+        }
+
+        .main-wrapper {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #050507;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+    </style>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DJPromoWebApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark navbar-custom mb-4 py-3">
+            <div class="container">
+                <a class="navbar-brand navbar-brand-glow" asp-area="" asp-controller="Gigs" asp-action="Index">
+                    🎛️ DJPromo<span style="color: var(--accent-cyan);">WebApp</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav ms-auto align-items-center gap-2">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Gigs" asp-action="Index">Home</a>
+                            <a class="nav-link nav-link-custom px-3" asp-area="" asp-controller="Gigs" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Gigs" asp-action="Create">CreateGig</a>
+                        <li class="nav-item ms-sm-2">
+                            <a class="nav-link btn-neon px-3" asp-area="" asp-controller="Gigs" asp-action="Create">Create Gig</a>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    <div class="container main-wrapper">
+        <main role="main" class="pb-5">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="py-4 text-center small mt-auto">
         <div class="container">
-            &copy; 2026 - DJPromoWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - <span class="text-light fw-medium">DJPromoWebApp</span> • Built for the Nightlife
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
