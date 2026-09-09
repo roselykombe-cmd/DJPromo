@@ -1,0 +1,61 @@
+﻿@model IEnumerable<DJPromoWebApp.Models.Gig>
+
+@{
+    ViewData["Title"] = "Gigs";
+}
+
+<h1>Gigs</h1>
+
+<p>
+    <a asp-controller="Gigs"
+       asp-action="Create"
+       class="btn btn-primary">
+        Create New Gig
+    </a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Gig ID</th>
+            <th>DJ</th>
+            <th>Venue</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.GigID</td>
+                <td>@item.DJ?.StageName</td>
+                <td>@item.Venue?.Name</td>
+                <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                <td>@item.Time.ToString(@"hh\:mm")</td>
+
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@item.GigID"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a asp-action="Details"
+                       asp-route-id="@item.GigID"
+                       class="btn btn-info btn-sm">
+                        Details
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.GigID"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 

@@ -1,0 +1,100 @@
+﻿@model DJPromoWebApp.Models.Gig
+
+@{
+    ViewData["Title"] = "Edit Gig";
+}
+
+<h1>Edit Gig</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form asp-controller="Gigs"
+              asp-action="Edit"
+              asp-route-id="@Model.GigID"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="GigID" />
+
+            <div asp-validation-summary="All"
+                 class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="DJID" class="control-label">DJ</label>
+
+                <select asp-for="DJID" class="form-control">
+                    <option value="0">-- Select DJ --</option>
+
+                    @foreach (var dj in ViewBag.DJs)
+                    {
+                        <option value="@dj.DJID">
+                            @dj.StageName
+                        </option>
+                    }
+                </select>
+
+                <span asp-validation-for="DJID"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="VenueID" class="control-label">Venue</label>
+
+                <select asp-for="VenueID" class="form-control">
+                    <option value="0">-- Select Venue --</option>
+
+                    @foreach (var venue in ViewBag.Venues)
+                    {
+                        <option value="@venue.VenueID">
+                            @venue.Name
+                        </option>
+                    }
+                </select>
+
+                <span asp-validation-for="VenueID"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Date" class="control-label">Date</label>
+
+                <input asp-for="Date"
+                       type="date"
+                       class="form-control" />
+
+                <span asp-validation-for="Date"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Time" class="control-label">Time</label>
+
+                <input asp-for="Time"
+                       type="time"
+                       class="form-control" />
+
+                <span asp-validation-for="Time"
+                      class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Save Changes
+            </button>
+
+            <a asp-controller="Gigs"
+               asp-action="Index"
+               class="btn btn-secondary">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

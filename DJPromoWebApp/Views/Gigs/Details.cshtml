@@ -1,0 +1,36 @@
+﻿@model DJPromoWebApp.Models.Gig
+
+@{
+    ViewData["Title"] = "Gig Details";
+}
+
+<h1>Gig Details</h1>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">DJ</dt>
+    <dd class="col-sm-9">@Model.DJ?.StageName</dd>
+
+    <dt class="col-sm-3">Venue</dt>
+    <dd class="col-sm-9">@Model.Venue?.Name</dd>
+
+    <dt class="col-sm-3">Address</dt>
+    <dd class="col-sm-9">@Model.Venue?.Address</dd>
+
+    <dt class="col-sm-3">Date</dt>
+    <dd class="col-sm-9">@Model.Date.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-3">Time</dt>
+    <dd class="col-sm-9">@Model.Time.ToString(@"hh\:mm")</dd>
+</dl>
+
+<a asp-action="Edit"
+   asp-route-id="@Model.GigID"
+   class="btn btn-warning">
+    Edit
+</a>
+
+<a asp-action="Index"
+   class="btn btn-secondary">
+    Back to List
+</a>
